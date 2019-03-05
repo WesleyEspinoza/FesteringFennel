@@ -1,0 +1,19 @@
+{
+  "name": "festeringfennel",
+  "version": "1.0.0",
+  "description": "RottenTomato's lesser known competitor.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WesleyEspinoza/FesteringFennel.git"
+  },
+  "author": "Erick W Espinoza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WesleyEspinoza/FesteringFennel/issues"
+  },
+  "homepage": "https://github.com/WesleyEspinoza/FesteringFennel#readme"
+}

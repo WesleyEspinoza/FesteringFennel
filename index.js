@@ -42,13 +42,11 @@ app.get('/reviews/new', (req, res) => {
 
 // got to unique review
 app.get('/reviews/:id', (req, res) => {
-  Review.findById(req.params.id)
-    .then((review) => {
-      res.render('reviews-show', { review });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  Review.findById(req.params.id).then((review) => {
+    res.render('reviews-show', { review });
+  }).catch((err) => {
+    console.log(err.message);
+  });
 });
 
 app.put('/reviews/:id', (req, res) => {
@@ -72,7 +70,6 @@ app.get('/reviews', (req, res) => {
 
 // post reviews
 app.post('/reviews', (req, res) => {
-  console.log('body: ', req.body);
   Review.create(req.body)
     .then((review) => {
       res.redirect(`/reviews/${review._id}`);

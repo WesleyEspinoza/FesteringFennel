@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyPasrer = require('body-parser');
@@ -25,7 +27,7 @@ const Review = mongoose.model('Review', {
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   Review.find()
     .then((reviews) => {
       res.render('reviews-index', { reviews });
@@ -36,7 +38,7 @@ app.get('/', (req, res) => {
 });
 
 // Create a review
-app.get('/reviews/new', (req, res) => {
+app.get('/reviews/new', (_req, res) => {
   res.render('reviews-new', { title: 'New Review' });
 });
 
@@ -57,14 +59,14 @@ app.put('/reviews/:id', (req, res) => {
 
 // edit review
 app.get('/reviews/:id/edit', (req, res) => {
-  Review.findById(req.params.id, (err, review) => {
-    res.render('reviews-edit,', { review, title: 'Edit Review' });
+  Review.findById(req.params.id, (_err, review) => {
+    res.render('reviews-edit', { review, title: 'Edit Review' });
   });
 });
 
 
 // all reviews
-app.get('/reviews', (req, res) => {
+app.get('/reviews', (_req, res) => {
   res.render('/');
 });
 
@@ -78,7 +80,18 @@ app.post('/reviews', (req, res) => {
       console.log(err);
     });
 });
+// delete a review route
+app.delete('/reviews/:id', (req, res) => {
+  Review.findByIdAndRemove({ _id: req.params.id }, (err) => {
+    if (err) {
+      console.log(err);
+      res.redirect('/');
+    } else {
+      res.redirect('/');
+    }
+  });
+});
 
-app.listen(8000, () => {
-  console.log('Listening on http://localhost:8000!');
+app.listen(9000, () => {
+  console.log('Listening on http://localhost:9000!');
 });

@@ -13,14 +13,7 @@ const app = express();
 app.use(bodyPasrer.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
-const Review = mongoose.model('Review', {
-  title: String,
-  movieTitle: String,
-  description: String,
-  rating: Number,
-});
-
-const reviews = require('./controllers/reviews')(app, Review);
+const reviews = require('./controllers/reviews')(app);
 
 // mock Array
 // let reviews = [{

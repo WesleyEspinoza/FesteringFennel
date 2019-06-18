@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 // reviews.js
+const Review = require('../models/review');
 
-module.exports = (app, Review) => {
+module.exports = (app) => {
   app.get('/', (_req, res) => {
     Review.find()
       .then((reviews) => {
@@ -27,14 +28,13 @@ module.exports = (app, Review) => {
   });
 
   app.put('/reviews/:id', (req, res) => {
-    Review.findByIdAndUpdate({ _id: req.params.id }, (err, review) => {
-      if (err) {
-        console.log(err);
-        res.redirect(`/review/${review.id}`);
-      } else {
-        res.redirect(`/review/${review.id}`);
-      }
-    });
+    Review.findByIdAndUpdate(req.params.id, req.body)
+      .then((review) => {
+        res.redirect(`/reviews/${review._id}`);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   });
 
   // edit review

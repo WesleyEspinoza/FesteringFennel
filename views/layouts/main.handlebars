@@ -1,4 +1,10 @@
+
+
 <!-- views/layouts/main.handlebars -->
+<div class="wrapper">
+
+  
+</div>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,17 +13,22 @@
     <title>Festering Fennel</title>
       <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/materia/bootstrap.min.css">
+  {{#each css}}
+        <link rel="stylesheet" href="/css/{{this}}">
+    {{/each}}
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-    {{> navbar}}
+  <div class="content">
+  {{> navbar}}
     <div class="container">
     {{{body}}}
   </div>
-    <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+</div>
   <!-- Footer -->
-<footer class="page-footer font-small blue pt-4">
+<footer class="footer">
   <div class="container-fluid text-center">
      <div class="row">
      <hr class="clearfix w-100 d-md-none pb-3">

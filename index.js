@@ -16,6 +16,7 @@ const app = express();
 
 app.use(bodyPasrer.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(express.static('public'));
 
 const reviews = require('./controllers/reviews')(app);
 const comments = require('./controllers/comments')(app);

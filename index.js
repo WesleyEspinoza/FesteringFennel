@@ -10,6 +10,7 @@ const methodOverride = require('method-override');
 mongoose.connect('mongodb://localhost/rotten-potatoes', { useNewUrlParser: true });
 const app = express();
 
+
 app.use(bodyPasrer.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
@@ -23,7 +24,4 @@ const reviews = require('./controllers/reviews')(app);
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-
-app.listen(9000, () => {
-  console.log('Listening on http://localhost:9000!');
-});
+module.exports = app.listen(4444);

@@ -4,7 +4,7 @@
   "description": "RottenTomato's lesser known competitor.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha 'test/**/*.js'"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,12 @@
     "mongoose": "^5.5.14"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^5.15.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-google": "^0.12.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-plugin-import": "^2.16.0",
+    "mocha": "^6.1.4"
   }
 }

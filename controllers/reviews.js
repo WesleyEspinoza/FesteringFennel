@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 // reviews.js
+const moment = require('moment');
 const Review = require('../models/review');
 const Comment = require('../models/comment');
 
@@ -24,9 +25,14 @@ module.exports = (app) => {
   app.get('/reviews/:id', (req, res) => {
   // find review
     Review.findById(req.params.id).then((review) => {
-    // fetch its comments
+      let { createdAt } = review.createdAt;
+      createdAt = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
+      review.createdAtFormatted = createdAt;
+
+      // fetch its comments
       Comment.find({ reviewId: req.params.id }).then((comments) => {
       // respond with the template with both values
+        comments.reverse();
         res.render('reviews-show', { review, comments });
       });
     }).catch((err) => {

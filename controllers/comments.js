@@ -11,4 +11,16 @@ module.exports = (app) => {
       console.log(err.message);
     });
   });
+
+  app.delete('/reviews/comments/:id', (req, res) => {
+    console.log('DELETE comment');
+    Comment.findByIdAndRemove({ _id: req.params.id }, (err) => {
+      if (err) {
+        console.log(err);
+        res.redirect('back');
+      } else {
+        res.redirect('back');
+      }
+    });
+  });
 };

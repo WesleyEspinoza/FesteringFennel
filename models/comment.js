@@ -1,15 +1,13 @@
 // comment.js
 
-const Comment = require('../models/comment');
+const mongoose = require('mongoose');
 
-module.exports = (app) => {
-  // CREATE Comment
-  app.post('/reviews/comments', (req, res) => {
-    Comment.create(req.body).then((comment) => {
-      console.log(comment);
-      res.redirect(`/reviews/${comment.reviewId}`);
-    }).catch((err) => {
-      console.log(err.message);
-    });
-  });
-};
+const { Schema } = mongoose;
+
+const Comment = mongoose.model('Comment', {
+  title: String,
+  content: String,
+  reviewId: { type: Schema.Types.ObjectId, ref: 'Review' },
+});
+
+module.exports = Comment;

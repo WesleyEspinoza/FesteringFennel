@@ -6,7 +6,7 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes', { useNewUrlParser: true });

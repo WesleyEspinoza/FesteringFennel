@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 // reviews.js
 const Review = require('../models/review');
+const Comment = require('../models/comment');
 
 module.exports = (app) => {
   app.get('/', (_req, res) => {
@@ -18,27 +19,18 @@ module.exports = (app) => {
     res.render('reviews-new', { title: 'New Review' });
   });
 
-
+  // got to unique review
   // SHOW
   app.get('/reviews/:id', (req, res) => {
-    // find review
+  // find review
     Review.findById(req.params.id).then((review) => {
-      // fetch its comments
+    // fetch its comments
       Comment.find({ reviewId: req.params.id }).then((comments) => {
-        // respond with the template with both values
+      // respond with the template with both values
         res.render('reviews-show', { review, comments });
       });
     }).catch((err) => {
-      // catch errors
-      console.log(err.message);
-    });
-  });
-
-  // got to unique review
-  app.get('/reviews/:id', (req, res) => {
-    Review.findById(req.params.id).then((review) => {
-      res.render('reviews-show', { review });
-    }).catch((err) => {
+    // catch errors
       console.log(err.message);
     });
   });

@@ -1,13 +1,16 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyPasrer = require('body-parser');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+
+const port = process.env.PORT || 3000;
 
 
-mongoose.connect('mongodb://localhost/rotten-potatoes', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes', { useNewUrlParser: true });
+
 const app = express();
 
 
@@ -24,4 +27,4 @@ const reviews = require('./controllers/reviews')(app);
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-module.exports = app.listen(4444);
+module.exports = app.listen(port);

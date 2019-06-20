@@ -1,11 +1,14 @@
 <h1>Now Playing</h1>
 <div class="row">
     {{#each movies}}
-        <div class="card">
-            <div class="col-md-3 card-body">
-                <h2 class="card-title">{{this.title}}</h2>
-                <a href="/movies/{{this.id}}"><img alt="{{this.title}}" src="https://image.tmdb.org/t/p/w154{{this.poster_path}}"></a>
+    <div class="col-sm-4">
+       <div class="card text-center mt-5" style="width: 18rem;">
+            <div class="card-body">
+                <h2 class="card-title justify-content-center">{{this.title}}</h2>
+                <a class="btn" href="/movies/{{this.id}}"> 
+                <img alt="{{this.title}}" src="https://image.tmdb.org/t/p/w154{{this.poster_path}}" class="center-block"></a>
             </div>
         </div>
+    </div>
     {{/each}}
 </div>

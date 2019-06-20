@@ -5,15 +5,15 @@ const Review = require('../models/review');
 const Comment = require('../models/comment');
 
 module.exports = (app) => {
-  app.get('/', (_req, res) => {
-    Review.find()
-      .then((reviews) => {
-        res.render('reviews-index', { reviews });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+  // app.get('/', (_req, res) => {
+  //   Review.find()
+  //     .then((reviews) => {
+  //       res.render('reviews-index', { reviews });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // });
 
   // Create a review
   app.get('/reviews/new', (_req, res) => {

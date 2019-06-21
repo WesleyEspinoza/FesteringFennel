@@ -16,35 +16,16 @@ module.exports = (app) => {
   // });
 
   // Create a review
-  app.get('/reviews/new', (_req, res) => {
-    res.render('reviews-new', { title: 'New Review' });
+  app.get('/movies/:movieId/reviews/new', (req, res) => {
+    res.render('reviews-new', { movieId: req.params.movieId });
   });
 
   // got to unique review
-  // SHOW
-  app.get('/reviews/:id', (req, res) => {
-  // find review
-    Review.findById(req.params.id).then((review) => {
-      let { createdAt } = review.createdAt;
-      createdAt = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
-      review.createdAtFormatted = createdAt;
 
-      // fetch its comments
-      Comment.find({ reviewId: req.params.id }).then((comments) => {
-      // respond with the template with both values
-        comments.reverse();
-        res.render('reviews-show', { review, comments });
-      });
-    }).catch((err) => {
-    // catch errors
-      console.log(err.message);
-    });
-  });
-
-  app.put('/reviews/:id', (req, res) => {
-    Review.findByIdAndUpdate(req.params.id, req.body)
+  app.put('/movies/:movieId/reviews/:id', (req, res) => {
+    Review.findByIdAndUpdate({ _id: req.params.id }, req.body)
       .then((review) => {
-        res.redirect(`/reviews/${review._id}`);
+        res.redirect(`/movies/${review.movieId}/reviews/${review._id}`);
       })
       .catch((err) => {
         console.log(err.message);
@@ -52,42 +33,62 @@ module.exports = (app) => {
   });
 
   // edit review
-  app.get('/reviews/:id/edit', (req, res) => {
+  app.get('/movies/:movieId/reviews/:id/edit', (req, res) => {
     Review.findById({ _id: req.params.id }, (err, review) => {
       if (err) {
         console.log(err);
-        res.redirect('/');
+        res.redirect(`/movies/${review.movieId}`);
       } else {
         res.render('reviews-edit', { review, title: 'Edit Review' });
       }
     });
   });
 
+  // SHOW
+  app.get('/movies/:movieId/reviews/:id', (req, res) => {
+    // find review
+    Review.findById({ _id: req.params.id }).then((review) => {
+      let { createdAt } = review.createdAt;
+      createdAt = moment(createdAt).format('MMMM Do YYYY, h:mm:ss a');
+      const rev = review;
+      rev.createdAtFormatted = createdAt;
 
-  // all reviews
-  app.get('/reviews', (_req, res) => {
-    res.render('/');
-  });
-
-  // post reviews
-  app.post('/reviews', (req, res) => {
-    Review.create(req.body)
-      .then((review) => {
-        res.redirect(`/reviews/${review._id}`);
-      })
-      .catch((err) => {
-        console.log(err);
+      // fetch its comments
+      Comment.find({ reviewId: req.params.id }).then((comments) => {
+        // respond with the template with both values
+        comments.reverse();
+        console.log(review);
+        res.render('reviews-show', { review, comments });
       });
+    }).catch((err) => {
+      // catch errors
+      console.log(err.message);
+    });
   });
+  // // all reviews
+  // app.get('/reviews', (_req, res) => {
+  //   res.render('/');
+  // });
+
   // delete a review route
-  app.delete('/reviews/:id', (req, res) => {
-    Review.findByIdAndRemove({ _id: req.params.id }, (err) => {
+  app.delete('/movies/:movieId/reviews/:id', (req, res) => {
+    Review.findByIdAndRemove({ _id: req.params.id }, (err, review) => {
       if (err) {
         console.log(err);
         res.redirect('/');
       } else {
-        res.redirect('/');
+        res.redirect(`/movies/${review.movieId}`);
       }
+    });
+  });
+
+
+  // post reviews
+  app.post('/movies/:movieId/reviews', (req, res) => {
+    Review.create(req.body).then((review) => {
+      res.redirect(`/movies/${review.movieId}`); // Redirect to movies/:id
+    }).catch((err) => {
+      console.log(err.message);
     });
   });
 };

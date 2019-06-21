@@ -3,11 +3,12 @@
 function deleteComment() {
   document.querySelectorAll('.delete-comment').forEach((commentElement) => {
     commentElement.addEventListener('click', (e) => {
-      console.log('click!');
+      e.preventDefault();
       const commentId = e.target.getAttribute('data-comment-id');
       const reviewId = e.target.getAttribute('data-comment-reviewId');
       const movieId = e.target.getAttribute('data-comment-movieId');
       // Same code used to add click handlers, except we call delete here
+      // eslint-disable-next-line no-undef
       axios.delete(`/movies/${movieId}/reviews/${reviewId}/comments/${commentId}`)
         .then((response) => {
           console.log(response);
@@ -21,6 +22,8 @@ function deleteComment() {
     });
   });
 }
+
+// scripts.js
 
 // Only run this if we find the new-comment element
 if (document.getElementById('new-comment')) {
@@ -36,28 +39,24 @@ if (document.getElementById('new-comment')) {
       comment[inputs[i].name] = inputs[i].value;
     }
 
-    // use axios to initialize a post request and send in the form data
-
-    // We'll need this for re-constructing our delete form
     const { movieId } = comment;
-    axios.post('/reviews/comments', comment)
+    axios.post('/movies/:movieid/reviews/:reviewId/comments', comment)
       .then((response) => {
-        // wait for the success response from the server
+      // wait for the success response from the server
         console.log('response: ', response);
         // remove the information from the form
         document.getElementById('new-comment').reset();
         // display the data as a new comment on the page
         document.getElementById('comments').insertAdjacentHTML('afterbegin',
           `<div class="card" id="${response.data.comment._id}">
-           <div class="card-block">
-             <h4 class="card-title">${response.title}</h4>
-             <p class="card-text">${response.content}</p>
-             <button class="btn btn-link delete-comment" data-comment-id="${response.data.comment._id}" data-comment-reviewId="${response.data.comment.reviewId}" data-comment-movieId="${movieId}">Delete</button>
+          <div class="card-block">
+          <h4 class="card-title">${response.title}</h4>
+          <p class="card-text">${response.content}</p>
+          <button class="btn btn-link delete-comment" data-comment-id="${response.data.comment._id}" data-comment-reviewId="${response.data.comment.reviewId}" data-comment-movieId="${movieId}">Delete</button>
            </div>
          </div>`);
       });
   });
-  deleteComment();
 }
 
 // Check to make sure we see any .delete-comment elements

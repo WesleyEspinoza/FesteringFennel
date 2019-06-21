@@ -5,16 +5,6 @@ const Review = require('../models/review');
 const Comment = require('../models/comment');
 
 module.exports = (app) => {
-  // app.get('/', (_req, res) => {
-  //   Review.find()
-  //     .then((reviews) => {
-  //       res.render('reviews-index', { reviews });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // });
-
   // Create a review
   app.get('/movies/:movieId/reviews/new', (req, res) => {
     res.render('reviews-new', { movieId: req.params.movieId });
@@ -55,9 +45,9 @@ module.exports = (app) => {
 
       // fetch its comments
       Comment.find({ reviewId: req.params.id }).then((comments) => {
-        comments.reverse();
-
         // respond with the template with both values
+        comments.reverse();
+        console.log(review);
         res.render('reviews-show', { review, comments });
       });
     }).catch((err) => {
@@ -65,10 +55,6 @@ module.exports = (app) => {
       console.log(err.message);
     });
   });
-  // // all reviews
-  // app.get('/reviews', (_req, res) => {
-  //   res.render('/');
-  // });
 
   // delete a review route
   app.delete('/movies/:movieId/reviews/:id', (req, res) => {

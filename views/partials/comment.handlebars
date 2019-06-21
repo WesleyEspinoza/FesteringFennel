@@ -4,7 +4,7 @@
     <h4 class="card-title">{{comment.title}}</h4>
     <p class="card-text">{{comment.content}}</p>
     <!-- Delete link -->
-    <p><form method="POST" action="/movies/{{this.movieId}}/reviews/{{comment.reviewId}}/comments/{{comment._id}}?_method=DELETE">
+    <p><form method="POST" action="/movies/{{movieId}}/reviews/{{comment.reviewId}}/comments/{{comment._id}}?_method=DELETE">
         <button class="btn btn-link" type="submit">Delete</button>
     </form></p>
   </div>

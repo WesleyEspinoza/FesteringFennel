@@ -21,11 +21,6 @@ const reviews = require('./controllers/reviews')(app);
 const comments = require('./controllers/comments')(app);
 const movies = require('./controllers/movies')(app);
 
-// mock Array
-// let reviews = [{
-// title: "great reviews", movieTitle: "IronManII"}, {title: "bad reviews", movieTitle: "BatManII"},
-// {title: "great reviews", movieTitle: "BatManI"}, {title: "bad reviews", movieTitle: "IronManI"}]
-
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 

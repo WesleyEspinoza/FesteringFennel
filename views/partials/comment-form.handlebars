@@ -1,5 +1,10 @@
 <!-- views/partials/comment-form.handlebars -->
+
   <form action="/movies/{{review.movieId}}/reviews/{{review._id}}/comments" method="POST">
+
+
+  <form action="#" id="new-comment">
+
   <input type="hidden" class="form-control" value="{{review._id}}" name="reviewId">
   <input type="hidden" class="form-control" name="movieId" value="{{review.movieId}}">
   

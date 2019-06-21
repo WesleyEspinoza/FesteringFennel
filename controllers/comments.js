@@ -2,10 +2,8 @@
 const Comment = require('../models/comment');
 
 module.exports = (app) => {
-<<<<<<< HEAD
-
   // DELETE
-=======
+
   // CREATE Comment
   app.post('/movies/:movieid/reviews/:reviewId/comments', (req, res) => {
     Comment.create(req.body).then((comment) => {
@@ -15,7 +13,7 @@ module.exports = (app) => {
     });
   });
   // delete
->>>>>>> ajax
+
   app.delete('/movies/:movieId/reviews/:reviewId/comments/:id', (req, res) => {
     console.log('DELETE comment');
     Comment.findByIdAndRemove(req.params.id).then((comment) => {

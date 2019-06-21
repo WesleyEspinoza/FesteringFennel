@@ -64,3 +64,21 @@ if (document.querySelectorAll('.delete-comment')) {
   // Add a click event listener for each comment
   deleteComment();
 }
+if (document.querySelectorAll('.delete-review')) {
+  document.querySelectorAll('.delete-review').forEach((reviewElement) => {
+    reviewElement.addEventListener('click', (e) => {
+      console.log('click!');
+      const reviewId = e.target.getAttribute('data-review-id');
+
+      axios.delete(`/admin/reviews/${reviewId}`)
+        .then((response) => {
+          console.log('response: ', response);
+          const review = document.getElementById(reviewId);
+          review.parentNode.removeChild(review); // OR review.style.display = 'none';
+        }).catch((err) => {
+          console.log(err);
+          alert('There was an error deleting this review.');
+        });
+    });
+  });
+}

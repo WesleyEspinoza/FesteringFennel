@@ -28,6 +28,7 @@ app.use(express.static('public'));
 const reviews = require('./controllers/reviews')(app);
 const comments = require('./controllers/comments')(app);
 const movies = require('./controllers/movies')(app);
+const admin = require('./controllers/admin')(app);
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');

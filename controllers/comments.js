@@ -10,13 +10,14 @@ module.exports = (app) => {
       res.status(400).send({ err });
     });
   });
-  // DELETE
+  // delete
   app.delete('/movies/:movieId/reviews/:reviewId/comments/:id', (req, res) => {
     console.log('DELETE comment');
     Comment.findByIdAndRemove(req.params.id).then((comment) => {
-      res.redirect(`/movies/${req.params.movieId}/reviews/${comment.reviewId}`);
+      res.status(200).send(comment);
     }).catch((err) => {
       console.log(err.message);
+      res.status(400).send(err);
     });
   });
 };

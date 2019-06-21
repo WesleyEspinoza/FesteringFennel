@@ -1,5 +1,27 @@
 // scripts.js
 
+function deleteComment() {
+  document.querySelectorAll('.delete-comment').forEach((commentElement) => {
+    commentElement.addEventListener('click', (e) => {
+      console.log('click!');
+      const commentId = e.target.getAttribute('data-comment-id');
+      const reviewId = e.target.getAttribute('data-comment-reviewId');
+      const movieId = e.target.getAttribute('data-comment-movieId');
+      // Same code used to add click handlers, except we call delete here
+      axios.delete(`/movies/${movieId}/reviews/${reviewId}/comments/${commentId}`)
+        .then((response) => {
+          console.log(response);
+          const comment = document.getElementById(commentId);
+          comment.parentNode.removeChild(comment); // OR comment.style.display = 'none';
+        })
+        .catch((error) => {
+          console.log(error);
+          alert('There was an error deleting this comment.');
+        });
+    });
+  });
+}
+
 // Only run this if we find the new-comment element
 if (document.getElementById('new-comment')) {
   // listen for a form submit event
@@ -26,17 +48,20 @@ if (document.getElementById('new-comment')) {
         document.getElementById('new-comment').reset();
         // display the data as a new comment on the page
         document.getElementById('comments').insertAdjacentHTML('afterbegin',
-          `<div class="card">
-        <div class="card-block">
-            <h4 class="card-title">${response.data.comment.title}</h4>
-            <p class="card-text">${response.data.comment.content}</p>
-            <p>
-                <form method="POST" action="/movies/${movieId}/reviews/${response.data.comment.reviewId}/comments/${response.data.comment._id}?_method=DELETE">
-                    <button class="btn btn-link" type="submit">Delete</button>
-                </form>
-            </p>
-        </div>
-    </div>`);
+          `<div class="card" id="${response.data.comment._id}">
+           <div class="card-block">
+             <h4 class="card-title">${response.title}</h4>
+             <p class="card-text">${response.content}</p>
+             <button class="btn btn-link delete-comment" data-comment-id="${response.data.comment._id}" data-comment-reviewId="${response.data.comment.reviewId}" data-comment-movieId="${movieId}">Delete</button>
+           </div>
+         </div>`);
       });
   });
+  deleteComment();
+}
+
+// Check to make sure we see any .delete-comment elements
+if (document.querySelectorAll('.delete-comment')) {
+  // Add a click event listener for each comment
+  deleteComment();
 }

@@ -50,8 +50,8 @@ if (document.getElementById('new-comment')) {
         document.getElementById('comments').insertAdjacentHTML('afterbegin',
           `<div class="card" id="${response.data.comment._id}">
            <div class="card-block">
-             <h4 class="card-title">${response.title}</h4>
-             <p class="card-text">${response.content}</p>
+             <h4 class="card-title">${response.data.comment.title}</h4>
+             <p class="card-text">${response.data.comment.content}</p>
              <button class="btn btn-link delete-comment" data-comment-id="${response.data.comment._id}" data-comment-reviewId="${response.data.comment.reviewId}" data-comment-movieId="${movieId}"">Delete</button>
            </div>
          </div>`);

@@ -6,6 +6,7 @@ module.exports = (app) => {
   app.post('/movies/:movieid/reviews/:reviewId/comments', (req, res) => {
     Comment.create(req.body).then((comment) => {
       res.status(200).send({ comment });
+      console.log(comment);
     }).catch((err) => {
       res.status(400).send({ err });
     });

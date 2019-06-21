@@ -55,9 +55,9 @@ module.exports = (app) => {
 
       // fetch its comments
       Comment.find({ reviewId: req.params.id }).then((comments) => {
-        // respond with the template with both values
         comments.reverse();
-        console.log(review);
+
+        // respond with the template with both values
         res.render('reviews-show', { review, comments });
       });
     }).catch((err) => {

@@ -7,9 +7,12 @@
 </div>
     <hr>
 <!-- Show Comments -->
-    {{#each comments}}
+<div id="comments">
+  {{#each comments}}
       {{> comment comment=this movieId=../review.movieId}}
     {{/each}}
+</div>
+
      <!-- Comment form -->
     {{> comment-form}}
   </div>
